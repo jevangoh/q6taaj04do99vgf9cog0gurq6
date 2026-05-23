@@ -1,67 +1,151 @@
+######################################################################################################
+#                                              metadata                                              #
+######################################################################################################
 [project]
-authors = [{name = "Jevan Goh", email = "javerngoh@gmail.com"}]
-dependencies = []
-name = "q6taaj04do99vgf9cog0gurq6" #please change this to the name of the actual package
-requires-python = ">= 3.11"
+name = "q6taaj04do99vgf9cog0gurq6"
 version = "0.0.0"
 
-[build-system]
-build-backend = "hatchling.build"
-requires = ["hatchling"]
+requires-python = ">= 3.11"
+dependencies = ["copier>=9.14.3,<10"]
 
-[dependency-groups]
+authors = [{name = "Jevan Goh", email = "javerngoh@gmail.com"}]
 
-#=========================== pixi ==================================
+######################################################################################################
+#                                                pixi                                                #
+######################################################################################################
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["win-64", "linux-64"]
 
-[tool.pixi.pypi-dependencies]
-q6taaj04do99vgf9cog0gurq6 = { path = ".", editable = true } #change to the name of the actual package
-
-[tool.pixi.tasks]
-
-[tool.pixi.feature.dev.tasks]
-init = "gh label clone jevangoh/q6taaj04do99vgf9cog0gurq6"
-setup = "prek install"
-sync_pixi_venv = "pixi install"
-clean_stubs = "python -c \"import pathlib; [f.unlink() for f in pathlib.Path('$PIXI_PROJECT_NAME').rglob('*.pyi')]\""
-generate_stubs = {cmd = "stubgen -p $PIXI_PROJECT_NAME -o . --include-docstrings", depends-on = ["clean_stubs"]}
-build_docs = "mkdocs build --config-file mkdocs.yaml"
-lint_markdown = "npx --yes markdownlint-cli2 '**/*.md'"
-format_markdown = "npx --yes markdownlint-cli2 --fix '**/*.md'"
-
-[tool.pixi.feature.dev.dependencies]
+# ==================================== defaults ====================================
+[tool.pixi.dependencies]
+git = ">=2.54.0,<3"
 gh = ">=2.83.2,<3"
-ty = ">=0.0.8,<0.0.9"
-ruff = ">=0.14.13,<0.15"
+
+[tool.pixi.tasks.generate]
+args = ["project_id"]
+cmd = "copier copy --data project_id={{ project_id }} ./q6taaj04do99vgf9cog0gurq6 ./{{ project_id }}"
+
+
+[tool.pixi.tasks.git_init]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} init -b main"
+
+[tool.pixi.tasks.repo_setup]
+args = ["project_id"]
+cmd = "cd ./{{ project_id }} && pixi run -e dev setup"
+
+[tool.pixi.tasks.repo_regenerate_stubs]
+args = ["project_id"]
+cmd = "cd ./{{ project_id }} && pixi run -e dev generate_stubs || true"
+
+[tool.pixi.tasks.repo_pre_commit]
+args = ["project_id"]
+cmd = "cd ./{{ project_id }} && pixi run -e dev prek run --all-files || true"
+
+[tool.pixi.tasks.git_add]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} add ."
+
+[tool.pixi.tasks.check_drift]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} diff --exit-code"
+
+[tool.pixi.tasks.git_initial_commit]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} commit -m 'Initial commit'"
+
+[tool.pixi.tasks.git_initial_tag]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} tag -a v0.0.0 -m 'release version 0.0.0'"
+
+[tool.pixi.tasks.create_github_repo]
+args = ["project_id"]
+cmd = "gh repo create {{ project_id }} --public --source=./{{ project_id }} --remote=origin --push"
+
+[tool.pixi.tasks.sleep]
+cmd = "sleep 5"
+
+[tool.pixi.tasks.delete_repo_labels]
+args = ["project_id"]
+cmd = """
+    gh label delete 'bug' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'documentation' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'duplicate' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'good first issue' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'help wanted' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'invalid' --repo https://github.com/jevangoh/{{ project_id }} --yes
+&&
+    gh label delete 'question' --repo https://github.com/jevangoh/{{ project_id }} --yes                
+&&
+    gh label delete 'wontfix' --repo https://github.com/jevangoh/{{ project_id }} --yes   
+&&
+    gh label delete 'enhancement' --repo https://github.com/jevangoh/{{ project_id }} --yes    
+"""
+
+[tool.pixi.tasks.add_github_labels]
+args = ["project_id"]
+cmd = """
+    gh label create "type: bug" --color "d73a4a" --description "Unexpected outcome." --repo jevangoh/{{ project_id }}
+&&
+    gh label create "type: suggestion" --color "ffa5a5" --description "Propose improvements or new ideas." --repo jevangoh/{{ project_id }}
+&&
+    gh label create "scope: source_code" --color "0075ca" --description "The actual source code." --repo jevangoh/{{ project_id }}
+&&
+    gh label create "scope: docs" --color "a2eeef" --description "Documentation(README, contributing, license, readthedocs, etc)." --repo jevangoh/{{ project_id }}
+&&
+    gh label create "scope: workflow" --color "5319e7" --description "Continuous Integration (CI) related." --repo jevangoh/{{ project_id }}
+"""
+
+[tool.pixi.tasks.init]
+args = ["project_id"]
+depends-on = [
+    {task = "generate", args = ["{{ project_id }}"]},
+    {task = "git_init", args = ["{{ project_id }}"]},
+    {task = "git_add", args = ["{{ project_id }}"]},
+    {task = "repo_setup", args = ["{{ project_id }}"]},
+    {task = "repo_regenerate_stubs", args = ["{{ project_id }}"]},
+    {task = "git_add", args = ["{{ project_id }}"]},
+    {task = "repo_pre_commit", args = ["{{ project_id }}"]},
+    {task = "git_add", args = ["{{ project_id }}"]},
+    {task = "git_initial_commit", args = ["{{ project_id }}"]},
+    {task = "git_initial_tag", args = ["{{ project_id }}"]},
+    {task = "create_github_repo", args = ["{{ project_id }}"]},
+    {task = "delete_repo_labels", args = ["{{ project_id }}"]},
+    {task = "add_github_labels", args = ["{{ project_id }}"]}
+]
+
+# ==================================== environments ====================================
+# ----------------------------- dev -----------------------------
+[tool.pixi.environments.dev]
+features = ["docs", "dev"]
+solve-group = "default"
+
+# ==================================== features ====================================
+# ----------------------------- dev -----------------------------
+[tool.pixi.feature.dev.dependencies]
 prek = ">=0.2.30,<0.3"
-mypy = ">=1.19.1,<2"
 nodejs = ">=25.2.1,<25.3"
 markdownlint-cli2 = ">=0.20.0,<0.21"
 
+[tool.pixi.feature.dev.tasks]
+setup = "prek install"
+lint_markdown = "npx --yes markdownlint-cli2"
+format_markdown = "npx --yes markdownlint-cli2 --fix"
+lint_all_markdown = "npx --yes markdownlint-cli2 '**/*.md'"
+format_all_markdown = "npx --yes markdownlint-cli2 --fix '**/*.md'"
+
+# ----------------------------- docs -----------------------------
 [tool.pixi.feature.docs.dependencies]
-mkdocs = "*"
-mkdocs-material = "*"
+mkdocs = ">=1.6.1,<2"
+mkdocs-material = ">=9.7.6,<10"
 pymdown-extensions = ">=10.20,<11"
 
-[tool.pixi.environments.dev]
-features = ["dev", "docs"]
-solve-group = "default"
+[tool.pixi.feature.docs.tasks]
+build_docs = "mkdocs build --config-file mkdocs.yaml"
 
-##=========================== ruff ===========================
-[tool.ruff]
-src = ["."]
-exclude = ["node_modules", "venv", ".git", ".pixi"]
-line-length = 100
-indent-width = 4
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-docstring-code-format = true
-
-#=========================== ty ===========================
-[tool.ty.environment]
-root = ["."]

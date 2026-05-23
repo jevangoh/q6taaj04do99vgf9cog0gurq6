@@ -1,0 +1,13 @@
+{%- if python_type == 'integer' -%}
+{{ project_id }}: int = 0
+{%- elif python_type == 'real' -%}
+{{ project_id }}: float = 0.0
+{%- elif python_type == 'string' -%}
+{{ project_id }}: str = ""
+{%- elif python_type == 'function' -%}
+{% include 'jinja_includes/function.py.jinja' %}
+{%- elif python_type == 'class' -%}
+{% include 'jinja_includes/class.py.jinja' %}    
+{%- else -%}
+{{ project_id }}: bool = False
+{%- endif -%}

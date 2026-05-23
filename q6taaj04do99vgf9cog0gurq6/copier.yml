@@ -1,0 +1,93 @@
+# Metadata
+_min_copier_version: "9.1.0"
+_answers_file: .copier_answers.yml
+
+# Variables
+host_url:
+  type: str
+  default: "https://github.com/jevangoh"
+  when: false
+
+builder_repo_id:
+  type: str
+  default: "q6taaj04do99vgf9cog0gurq6"
+  when: false
+
+builder_repo_url:
+  type: str
+  default: "{{ host_url }}/{{ builder_repo_id }}"
+  when: false
+
+documentation_repo_id:
+  type: str
+  default: "ot1j9dc4rdqcs45pcvpho3jgr"
+  when: false
+
+documentation_repo_url:
+  type: str
+  default: "{{ host_url }}/{{ documentation_repo_id }}"
+  when: false
+
+documentation_url:
+  type: str
+  default: "{{ documentation_repo_url }}/{{documentation_repo_id}}"
+  when: false
+
+project_repo_url:
+  type: str
+  default: "{{ host_url }}/{{ project_id }}"
+  when: false
+
+# Inputs
+project_id:
+  type: str
+  help: "What is the id of the project? (e.g. q6taaj04do99vgf9cog0gurq6)"
+  validate: "^[a-z0-9-]+$" # Ensure it's URL/GitHub friendly
+
+orcid_family_name:
+  type: str
+  default: "Goh"
+
+orcid_given_name:
+  type: str
+  default: "Kheng Xi Jevan"
+
+orcid:
+  type: str
+  default: "0009-0000-2958-6605"
+
+owner_name:
+  type: str
+  default: "Jevan Goh"
+  help: "Who is the owner?"
+
+owner_email:
+  type: str
+  default: "javerngoh@gmail.com"
+  help: "What is the email of the owner?"
+
+minimum_python_version:
+  type: str
+  default: "3.14"
+  help: "Which minimum Python version should this project target?"
+
+python_type:
+  type: str
+  default: "boolean"
+  choices:
+    - "boolean"
+    - "integer"
+    - "real"
+    - "string"
+    - "function"
+    - "class"
+    
+  help: "Which minimum Python version should this project target?"
+
+
+
+# Exclusions (Files to ignore during copy)
+_exclude:
+  - "copier.yml"
+  - ".git"
+  - "jinja_includes"

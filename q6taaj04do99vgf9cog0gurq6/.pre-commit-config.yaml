@@ -7,6 +7,20 @@ repos:
         language: system
         pass_filenames: false
 
+      - id: ruff-check
+        name: ruff-check
+        entry: pixi run -e dev ruff check --fix
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: true               
+
+      - id: ruff-format
+        name: ruff-format
+        entry: pixi run -e dev ruff format
+        language: system
+        types_or: [python, pyi]
+        pass_filenames: true
+ 
       - id: format-markdown
         name: format-markdown
         entry: pixi run -e dev format_markdown

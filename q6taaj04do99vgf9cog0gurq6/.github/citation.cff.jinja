@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "{{ orcid_family_name }}"
+    given-names: "{{ orcid_given_name }}"
+    orcid: "https://orcid.org/{{ orcid }}"
+title: "{{ project_id }}"
+version: 0.0.0
+doi: _
+date-released: {{ '%Y-%m-%d' | strftime }}
+url: "{{ project_repo_url }}"
+license: GPL-3.0-or-later
