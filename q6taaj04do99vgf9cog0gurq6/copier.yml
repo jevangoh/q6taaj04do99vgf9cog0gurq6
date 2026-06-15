@@ -81,10 +81,8 @@ python_type:
     - "string"
     - "function"
     - "class"
-    
+
   help: "Which minimum Python version should this project target?"
-
-
 
 # Exclusions (Files to ignore during copy)
 _exclude:

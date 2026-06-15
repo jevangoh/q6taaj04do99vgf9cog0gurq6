@@ -15,7 +15,10 @@ authors = [{name = "Jevan Goh", email = "javerngoh@gmail.com"}]
 ######################################################################################################
 [tool.pixi.workspace]
 channels = ["conda-forge"]
-platforms = ["win-64", "linux-64"]
+platforms = ["win-64", "linux-64", "linux-aarch64"]
+
+[tool.pixi.target.linux-aarch64.activation]
+env = { LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:$CONDA_PREFIX/lib" }
 
 # ==================================== defaults ====================================
 [tool.pixi.dependencies]
@@ -130,15 +133,16 @@ solve-group = "default"
 # ----------------------------- dev -----------------------------
 [tool.pixi.feature.dev.dependencies]
 prek = ">=0.2.30,<0.3"
-nodejs = ">=25.2.1,<25.3"
-markdownlint-cli2 = ">=0.20.0,<0.21"
+nodejs = ">=24,<25.3"
+prettier = ">=3.8.3"
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
-lint_markdown = "npx --yes markdownlint-cli2"
-format_markdown = "npx --yes markdownlint-cli2 --fix"
-lint_all_markdown = "npx --yes markdownlint-cli2 '**/*.md'"
-format_all_markdown = "npx --yes markdownlint-cli2 --fix '**/*.md'"
+
+lint_documents = "prettier --check --ignore-unknown"
+format_documents = "prettier --write --ignore-unknown"
+lint_all_documents = "prettier --check . --ignore-unknown"
+format_all_documents = "prettier --write . --ignore-unknown"
 
 # ----------------------------- docs -----------------------------
 [tool.pixi.feature.docs.dependencies]
