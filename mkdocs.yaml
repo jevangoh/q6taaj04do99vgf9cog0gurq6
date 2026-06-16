@@ -1,12 +1,49 @@
 site_name: q6taaj04do99vgf9cog0gurq6
-theme:
-  name: material
 
 docs_dir: documentation
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+  palette:
+    # Automatic/System Mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Light Mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Dark Mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 
 markdown_extensions:
   - pymdownx.snippets:
       base_path: ["."]
+
+plugins:
+  - search
+
+validation:
+  nav:
+    not_found: info
+    omitted_files: info
+  links:
+    not_found: info
 
 # nav:
 #   - Home: README.md

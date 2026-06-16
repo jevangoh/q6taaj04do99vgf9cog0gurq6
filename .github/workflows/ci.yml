@@ -15,8 +15,11 @@ jobs:
           environments: dev
           cache: true
 
-      - name: Run Markdown Format
-        run: pixi run -e dev format_markdown
+      - name: Lint
+        run: pixi run -e dev lint_all_documents
+
+      - name: Format
+        run: pixi run -e dev format_all_documents
 
       - name: Check for drift
         run: git diff --exit-code

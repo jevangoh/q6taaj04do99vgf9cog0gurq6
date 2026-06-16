@@ -11,7 +11,6 @@ repos:
         name: format-documents
         entry: pixi run -e dev format_documents
         language: system
-        types: [markdown]
         pass_filenames: true
 
       - id: check-for-drift
