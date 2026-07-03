@@ -16,13 +16,15 @@ requires = ["hatchling"]
 
 [dependency-groups]
 
-
 ######################################################################################################
 #                                                pixi                                                #
 ######################################################################################################
 [tool.pixi.workspace]
 channels = ["conda-forge"]
-platforms = ["win-64", "linux-64"]
+platforms = ["win-64", "linux-64", "linux-aarch64"]
+
+[tool.pixi.target.linux-aarch64.activation]
+env = { LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:$CONDA_PREFIX/lib" }
 
 [tool.pixi.pypi-dependencies]
 {{ project_id }} = { path = ".", editable = true }
@@ -41,12 +43,11 @@ solve-group = "default"
 [tool.pixi.feature.dev.dependencies]
 git = ">=2.54.0,<3"
 gh = ">=2.83.2,<3"
-pyrefly = ">=1.0.0,<2"
 ruff = ">=0.14.13,<0.15"
 prek = ">=0.2.30,<0.3"
 mypy = ">=1.19.1,<2"
-nodejs = ">=25.2.1,<25.3"
-markdownlint-cli2 = ">=0.20.0,<0.21"
+nodejs = ">=24,<25.3"
+prettier = ">=3.8.3"
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
@@ -84,14 +85,23 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 docstring-code-format = true
 
+######################################################################################################
+#                                                mypy                                                #
+######################################################################################################
+[tool.mypy]
+mypy_path = "."
+exclude = ["node_modules", "venv", ".git", ".pixi", "build"]
 
-######################################################################################################
-#                                             pyrefly                                                #
-######################################################################################################
-[tool.pyrefly]
-project-includes = [
-    "**/*.py*",
-    "**/*.ipynb",
-]
+strict = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+ignore_missing_imports = true
+
 
 

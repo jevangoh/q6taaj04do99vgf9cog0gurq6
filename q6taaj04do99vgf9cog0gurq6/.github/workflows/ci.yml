@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  python-lint-and-typecheck:
+  python:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,13 +24,13 @@ jobs:
       - name: Run Ruff Format
         run: pixi run -e dev ruff format .
 
-      - name: Run Pyrefly Type Checker
-        run: pixi run -e dev pyrefly check
+      - name: Run Mypy Type Checker
+        run: pixi run -e dev mypy .
 
       - name: Check for drift
         run: git diff --exit-code
 
-  markdown-lint:
+  other_documents:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -42,8 +42,11 @@ jobs:
           environments: dev
           cache: true
 
-      - name: Run Markdown Format
-        run: pixi run -e dev format_markdown
+      - name: Lint
+        run: pixi run -e dev lint_all_documents
+
+      - name: Format
+        run: pixi run -e dev format_all_documents
 
       - name: Check for drift
         run: git diff --exit-code
