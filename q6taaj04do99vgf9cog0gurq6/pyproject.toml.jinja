@@ -56,10 +56,10 @@ clean_stubs = "python -c \"import pathlib; [f.unlink() for f in pathlib.Path('$P
 generate_stubs = {cmd = "stubgen -p $PIXI_PROJECT_NAME -o . --include-docstrings"}
 regenerate_stubs = {depends-on = ["clean_stubs", "generate_stubs"]}
 
-lint_markdown = "npx --yes markdownlint-cli2"
-format_markdown = "npx --yes markdownlint-cli2 --fix"
-lint_all_markdown = "npx --yes markdownlint-cli2 '**/*.md'"
-format_all_markdown = "npx --yes markdownlint-cli2 --fix '**/*.md'"
+lint_documents = "prettier --check --ignore-unknown"
+format_documents = "prettier --write --ignore-unknown"
+lint_all_documents = "prettier --check . --ignore-unknown"
+format_all_documents = "prettier --write . --ignore-unknown"
 
 # ----------------------------- docs -----------------------------
 [tool.pixi.feature.docs.dependencies]

@@ -21,11 +21,10 @@ repos:
         types_or: [python, pyi]
         pass_filenames: true
 
-      - id: format-markdown
-        name: format-markdown
-        entry: pixi run -e dev format_markdown
+      - id: format-documents
+        name: format-documents
+        entry: pixi run -e dev format_documents
         language: system
-        types: [markdown]
         pass_filenames: true
 
       - id: check-for-drift
