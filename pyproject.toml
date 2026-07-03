@@ -65,44 +65,86 @@ cmd = "git -C ./{{ project_id }} tag -a v0.0.0 -m 'release version 0.0.0'"
 args = ["project_id"]
 cmd = "gh repo create {{ project_id }} --public --source=./{{ project_id }} --remote=origin --push"
 
-[tool.pixi.tasks.sleep]
-cmd = "sleep 5"
+[tool.pixi.tasks.delete_bug_label]
+args = ["project_id"]
+cmd = "gh label delete 'bug' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_documentation_label]
+args = ["project_id"]
+cmd = "gh label delete 'documentation' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_duplicate_label]
+args = ["project_id"]
+cmd = "gh label delete 'duplicate' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_good_first_issue_label]
+args = ["project_id"]
+cmd = "gh label delete 'good first issue' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_help_wanted_label]
+args = ["project_id"]
+cmd = "gh label delete 'help wanted' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_invalid_label]
+args = ["project_id"]
+cmd = "gh label delete 'invalid' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_question_label]
+args = ["project_id"]
+cmd = "gh label delete 'question' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_wontfix_label]
+args = ["project_id"]
+cmd = "gh label delete 'wontfix' --repo https://github.com/jevangoh/{{ project_id }} --yes"
+
+[tool.pixi.tasks.delete_enhancement_label]
+args = ["project_id"]
+cmd = "gh label delete 'enhancement' --repo https://github.com/jevangoh/{{ project_id }} --yes"
 
 [tool.pixi.tasks.delete_repo_labels]
 args = ["project_id"]
-cmd = """
-    gh label delete 'bug' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'documentation' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'duplicate' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'good first issue' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'help wanted' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'invalid' --repo https://github.com/jevangoh/{{ project_id }} --yes
-&&
-    gh label delete 'question' --repo https://github.com/jevangoh/{{ project_id }} --yes                
-&&
-    gh label delete 'wontfix' --repo https://github.com/jevangoh/{{ project_id }} --yes   
-&&
-    gh label delete 'enhancement' --repo https://github.com/jevangoh/{{ project_id }} --yes    
-"""
+depends-on = [
+    {task = "delete_bug_label", args = ["{{ project_id }}"]},
+    {task = "delete_documentation_label", args = ["{{ project_id }}"]},
+    {task = "delete_duplicate_label", args = ["{{ project_id }}"]},
+    {task = "delete_good_first_issue_label", args = ["{{ project_id }}"]},
+    {task = "delete_help_wanted_label", args = ["{{ project_id }}"]},
+    {task = "delete_invalid_label", args = ["{{ project_id }}"]},
+    {task = "delete_question_label", args = ["{{ project_id }}"]},
+    {task = "delete_wontfix_label", args = ["{{ project_id }}"]},
+    {task = "delete_enhancement_label", args = ["{{ project_id }}"]}
+]
+
+
+[tool.pixi.tasks.add_bug_label]
+args = ["project_id"]
+cmd = """gh label create "type: bug" --color "d73a4a" --description "Unexpected outcome." --repo jevangoh/{{ project_id }}"""
+
+[tool.pixi.tasks.add_suggestion_label]
+args = ["project_id"]
+cmd = """gh label create "type: suggestion" --color "ffa5a5" --description "Propose improvements or new ideas." --repo jevangoh/{{ project_id }}"""
+
+[tool.pixi.tasks.add_source_code_label]
+args = ["project_id"]
+cmd = """gh label create "scope: source_code" --color "0075ca" --description "The actual source code." --repo jevangoh/{{ project_id }}"""
+
+[tool.pixi.tasks.add_docs_label]
+args = ["project_id"]
+cmd = """gh label create "scope: docs" --color "a2eeef" --description "Documentation(README, contributing, license, readthedocs, etc)." --repo jevangoh/{{ project_id }}"""
+
+[tool.pixi.tasks.add_workflow_label]
+args = ["project_id"]
+cmd = """gh label create "scope: workflow" --color "5319e7" --description "Continuous Integration (CI) related." --repo jevangoh/{{ project_id }}"""
 
 [tool.pixi.tasks.add_github_labels]
 args = ["project_id"]
-cmd = """
-    gh label create "type: bug" --color "d73a4a" --description "Unexpected outcome." --repo jevangoh/{{ project_id }}
-&&
-    gh label create "type: suggestion" --color "ffa5a5" --description "Propose improvements or new ideas." --repo jevangoh/{{ project_id }}
-&&
-    gh label create "scope: source_code" --color "0075ca" --description "The actual source code." --repo jevangoh/{{ project_id }}
-&&
-    gh label create "scope: docs" --color "a2eeef" --description "Documentation(README, contributing, license, readthedocs, etc)." --repo jevangoh/{{ project_id }}
-&&
-    gh label create "scope: workflow" --color "5319e7" --description "Continuous Integration (CI) related." --repo jevangoh/{{ project_id }}
-"""
+depends-on = [
+    {task = "add_bug_label", args = ["{{ project_id }}"]},
+    {task = "add_suggestion_label", args = ["{{ project_id }}"]},
+    {task = "add_source_code_label", args = ["{{ project_id }}"]},
+    {task = "add_docs_label", args = ["{{ project_id }}"]},
+    {task = "add_workflow_label", args = ["{{ project_id }}"]}
+]
 
 [tool.pixi.tasks.init]
 args = ["project_id"]
