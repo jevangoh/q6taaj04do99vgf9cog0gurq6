@@ -31,43 +31,35 @@ cmd = "copier copy --vcs-ref HEAD --data project_id={{ project_id }} https://git
 
 [tool.pixi.tasks.git_init]
 args = ["project_id"]
-cmd = "pixi run -e dev git init -b main"
-cwd = "{{ project_id }}"
+cmd = "git -C ./{{ project_id }} init -b main"
 
 [tool.pixi.tasks.repo_setup]
 args = ["project_id"]
-cmd = "pixi run -e dev setup"
-cwd = "{{ project_id }}"
+cmd = "cd ./{{ project_id }} && pixi run -e dev setup"
 
 [tool.pixi.tasks.repo_regenerate_stubs]
 args = ["project_id"]
-cmd = "pixi run -e dev generate_stubs || true"
-cwd = "{{ project_id }}"
+cmd = "cd ./{{ project_id }} && pixi run -e dev generate_stubs || true"
 
 [tool.pixi.tasks.repo_pre_commit]
 args = ["project_id"]
-cmd = "pixi run -e dev prek run --all-files || true"
-cwd = "{{ project_id }}"
+cmd = "cd ./{{ project_id }} && pixi run -e dev prek run --all-files || true"
 
 [tool.pixi.tasks.git_add]
 args = ["project_id"]
-cmd = "git add ."
-cwd = "{{ project_id }}"
+cmd = "git -C ./{{ project_id }} add ."
 
 [tool.pixi.tasks.check_drift]
 args = ["project_id"]
-cmd = "git diff --exit-code"
-cwd = "{{ project_id }}"
+cmd = "git -C ./{{ project_id }} diff --exit-code"
 
 [tool.pixi.tasks.git_initial_commit]
 args = ["project_id"]
-cmd = "git commit -m 'Initial commit'"
-cwd = "{{ project_id }}"
+cmd = "git -C ./{{ project_id }} commit -m 'Initial commit'"
 
 [tool.pixi.tasks.git_initial_tag]
 args = ["project_id"]
-cmd = "git tag -a v0.0.0 -m 'release version 0.0.0'"
-cwd = "{{ project_id }}"
+cmd = "git -C ./{{ project_id }} tag -a v0.0.0 -m 'release version 0.0.0'"
 
 [tool.pixi.tasks.create_github_repo]
 args = ["project_id"]
