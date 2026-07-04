@@ -164,6 +164,9 @@ depends-on = [
     {task = "add_github_labels", args = ["{{ project_id }}"]}
 ]
 
+[tool.pixi.tasks.update]
+args = ["path"]
+cmd = "copier update --answers-file .copier_answers.yml --vcs-ref main {{ path }}"
 # ==================================== environments ====================================
 # ----------------------------- dev -----------------------------
 [tool.pixi.environments.dev]
