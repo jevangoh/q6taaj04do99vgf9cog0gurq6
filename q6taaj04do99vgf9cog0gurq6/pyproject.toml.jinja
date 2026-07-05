@@ -51,14 +51,14 @@ solve-group = "default"
 
 # ==================================== features ====================================
 # ----------------------------- dev -----------------------------
+[tool.pixi.feature.dev]
+dependency-groups = ["dev"]
+
 [tool.pixi.feature.dev.dependencies]
 git = ">=2.54.0,<3"
 gh = ">=2.83.2,<3"
 nodejs = ">=24,<25.3"
 prettier = ">=3.8.3"
-
-[tool.pixi.feature.dev.pypi-dependencies]
-dev = { version = "dependency-groups:dev" }
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
@@ -75,10 +75,10 @@ format_all_documents = "prettier --write . --ignore-unknown"
 update_template = "copier update --answers-file .copier_answers.yml --vcs-ref main"
 
 # ----------------------------- docs -----------------------------
-[tool.pixi.feature.docs.dependencies]
+[tool.pixi.feature.docs]
+dependency-groups = ["docs"]
 
-[tool.pixi.feature.docs.pypi-dependencies]
-docs = { version = "dependency-groups:docs" }
+[tool.pixi.feature.docs.dependencies]
 
 [tool.pixi.feature.docs.tasks]
 build_docs = "mkdocs build --config-file mkdocs.yaml"
