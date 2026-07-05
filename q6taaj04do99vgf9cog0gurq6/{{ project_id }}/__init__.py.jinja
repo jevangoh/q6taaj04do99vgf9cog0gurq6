@@ -1,3 +1,9 @@
+from importlib.metadata import version, PackageNotFoundError
 from .{{ project_id }} import {{ project_id }} as _
 
-__all__ = ["_"]
+try:
+    __version__ = version("your_package_distribution_name")
+except PackageNotFoundError:
+    __version__ = "0.0.0"
+
+__all__ = ["_", "__version__"]
