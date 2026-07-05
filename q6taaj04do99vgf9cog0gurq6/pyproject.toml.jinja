@@ -51,9 +51,6 @@ solve-group = "default"
 
 # ==================================== features ====================================
 # ----------------------------- dev -----------------------------
-[tool.pixi.feature.dev]
-dependency-groups = ["dev"]
-
 [tool.pixi.feature.dev.dependencies]
 git = ">=2.54.0,<3"
 gh = ">=2.83.2,<3"
@@ -75,9 +72,6 @@ format_all_documents = "prettier --write . --ignore-unknown"
 update_template = "copier update --answers-file .copier_answers.yml --vcs-ref main"
 
 # ----------------------------- docs -----------------------------
-[tool.pixi.feature.docs]
-dependency-groups = ["docs"]
-
 [tool.pixi.feature.docs.dependencies]
 
 [tool.pixi.feature.docs.tasks]
