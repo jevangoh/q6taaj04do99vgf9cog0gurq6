@@ -61,6 +61,10 @@ cmd = "git -C ./{{ project_id }} commit -m 'Initial commit'"
 args = ["project_id"]
 cmd = "git -C ./{{ project_id }} tag -a v0.0.0 -m 'release version 0.0.0'"
 
+[tool.pixi.tasks.git_push_tags]
+args = ["project_id"]
+cmd = "git -C ./{{ project_id }} push origin --tags"
+
 [tool.pixi.tasks.create_github_repo]
 args = ["project_id"]
 cmd = "gh repo create {{ project_id }} --public --source=./{{ project_id }} --remote=origin --push"
@@ -159,6 +163,7 @@ depends-on = [
     {task = "git_add", args = ["{{ project_id }}"]},
     {task = "git_initial_commit", args = ["{{ project_id }}"]},
     {task = "git_initial_tag", args = ["{{ project_id }}"]},
+    {task = "git_push_tags", args = ["{{ project_id }}"]},
     {task = "create_github_repo", args = ["{{ project_id }}"]},
     {task = "delete_repo_labels", args = ["{{ project_id }}"]},
     {task = "add_github_labels", args = ["{{ project_id }}"]}
