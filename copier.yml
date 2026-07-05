@@ -9,6 +9,11 @@ host_url:
   default: "https://github.com/jevangoh"
   when: false
 
+as1oocnl0leb61sj1yew20lt2_url:
+  type: str
+  default: "https://jevangoh.github.io/as1oocnl0leb61sj1yew20lt2/"
+  when: false
+
 builder_repo_id:
   type: str
   default: "q6taaj04do99vgf9cog0gurq6"
