@@ -58,7 +58,7 @@ nodejs = ">=24,<25.3"
 prettier = ">=3.8.3"
 
 [tool.pixi.feature.dev.pypi-dependencies]
-_ = { depends-on = "dependency-groups:dev" }
+dev = { depends-on = "dependency-groups:dev" }
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
@@ -78,7 +78,7 @@ update_template = "copier update --answers-file .copier_answers.yml --vcs-ref ma
 [tool.pixi.feature.docs.dependencies]
 
 [tool.pixi.feature.docs.pypi-dependencies]
-_ = { depends-on = "dependency-groups:docs" }
+docs = { depends-on = "dependency-groups:docs" }
 
 [tool.pixi.feature.docs.tasks]
 build_docs = "mkdocs build --config-file mkdocs.yaml"
