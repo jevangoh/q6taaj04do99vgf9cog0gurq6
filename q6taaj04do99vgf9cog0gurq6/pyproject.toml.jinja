@@ -15,11 +15,15 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [dependency-groups]
+build = [
+    "build>=1.5.0,<2"
+]
 dev = [
     "ruff>=0.14.13,<0.15",
     "prek>=0.2.30,<0.3",
     "mypy>=1.19.1,<2",
-    "copier>=9.14.3,<10"
+    "copier>=9.14.3,<10",
+    "build>=1.5.0,<2"
 ]
 docs = [
     "mkdocs>=1.6.1,<2",
@@ -46,7 +50,7 @@ env = { LD_LIBRARY_PATH = "$LD_LIBRARY_PATH:$CONDA_PREFIX/lib" }
 # ==================================== environments ====================================
 # ----------------------------- dev -----------------------------
 [tool.pixi.environments.dev]
-features = ["dev", "docs"]
+features = ["dev", "docs", "build"]
 solve-group = "default"
 
 # ==================================== features ====================================
