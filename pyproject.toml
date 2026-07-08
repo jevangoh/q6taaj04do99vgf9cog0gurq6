@@ -45,10 +45,6 @@ cmd = "cd ./{{ project_id }} && pixi run -e dev prek run --all-files || true"
 args = ["project_id"]
 cmd = "git -C ./{{ project_id }} add ."
 
-[tool.pixi.tasks.check_drift]
-args = ["project_id"]
-cmd = "git -C ./{{ project_id }} diff --exit-code"
-
 [tool.pixi.tasks.git_initial_commit]
 args = ["project_id"]
 cmd = "git -C ./{{ project_id }} commit -m 'Initial commit'"

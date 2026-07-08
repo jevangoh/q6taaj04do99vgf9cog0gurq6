@@ -93,3 +93,298 @@ python_type:
 # Exclusions (Files to ignore during copy)
 _exclude:
   - "jinja_includes"
+
+_tasks:
+  - command: [pixi, run, -e, dev, git, init, -b, main]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, git, add, .]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, setup]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, git, add, .]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, prek, run, --all-files, "||", true]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, git, add, .]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, git, commit, -m, "Initial commit"]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [
+        pixi,
+        run,
+        -e,
+        dev,
+        git,
+        tag,
+        -a,
+        v.0.0.0,
+        -m,
+        "release version 0.0.0",
+      ] #git_initial_tag
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        repo,
+        create,
+        "{{ project_id }}",
+        --public,
+        "--source=./{{ project_id }}",
+        --remote=origin,
+        --push,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: [pixi, run, -e, dev, git, push, origin, --tags]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        bug,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        documentation,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        duplicate,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        "good first issue",
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        "help wanted",
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        invalid,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        question,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        wontfix,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        delete,
+        enhancement,
+        --repo,
+        "jevangoh/{{ project_id }}",
+        --yes,
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        create,
+        "type: bug",
+        --color,
+        "d73a4a",
+        --description,
+        "Unexpected outcome.",
+        --repo,
+        "jevangoh/{{ project_id }}",
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        create,
+        "type: suggestion",
+        --color,
+        "ffa5a5",
+        --description,
+        "Propose improvements or new ideas.",
+        --repo,
+        "jevangoh/{{ project_id }}",
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        create,
+        "scope: source_code",
+        --color,
+        "0075ca",
+        --description,
+        "The actual source code.",
+        --repo,
+        "jevangoh/{{ project_id }}",
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        create,
+        "scope: docs",
+        --color,
+        "a2eeef",
+        --description,
+        "Documentation(README, contributing, license, readthedocs, etc).",
+        --repo,
+        "jevangoh/{{ project_id }}",
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command:
+      [
+        pixi,
+        run,
+        -e,
+        dev,
+        gh,
+        label,
+        create,
+        "scope: workflow",
+        --color,
+        "5319e7",
+        --description,
+        "Continuous Integration (CI) related.",
+        --repo,
+        "jevangoh/{{ project_id }}",
+      ]
+    when: "{{ _copier_operation == 'copy' }}"
