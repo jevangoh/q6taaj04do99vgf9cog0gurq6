@@ -95,22 +95,22 @@ _exclude:
   - "jinja_includes"
 
 _tasks:
-  - command: ["pixi", "run", "-e,", "dev", "git", "init", "-b", "main"]
+  - command: ["pixi", "run", "-e", "dev", "git", "init", "-b", "main"]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e,", "dev", "git", "add", "."]
+  - command: ["pixi", "run", "-e", "dev", "git", "add", "."]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e,", "dev", setup]
+  - command: ["pixi", "run", "-e", "dev", setup]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e,", "dev", "git", "add", "."]
+  - command: ["pixi", "run", "-e", "dev", "git", "add", "."]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e,", "dev", run_all_pre_commit_hooks]
+  - command: ["pixi", "run", "-e", "dev", run_all_pre_commit_hooks]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e,", "dev", "git", "add", "."]
+  - command: ["pixi", "run", "-e", "dev", "git", "add", "."]
     when: "{{ _copier_operation == 'copy' }}"
 
   - command:
