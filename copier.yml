@@ -149,7 +149,7 @@ _tasks:
       ]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", -"e", "dev", "git", "push", "origin", "--tags"]
+  - command: ["pixi", "run", "-e", "dev", "git", "push", "origin", "--tags"]
     when: "{{ _copier_operation == 'copy' }}"
 
   - command:
