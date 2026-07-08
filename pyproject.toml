@@ -37,10 +37,6 @@ cmd = "git -C ./{{ project_id }} init -b main"
 args = ["project_id"]
 cmd = "cd ./{{ project_id }} && pixi run -e dev setup"
 
-[tool.pixi.tasks.repo_regenerate_stubs]
-args = ["project_id"]
-cmd = "cd ./{{ project_id }} && pixi run -e dev generate_stubs || true"
-
 [tool.pixi.tasks.repo_pre_commit]
 args = ["project_id"]
 cmd = "cd ./{{ project_id }} && pixi run -e dev prek run --all-files || true"
@@ -157,14 +153,13 @@ depends-on = [
     {task = "git_init", args = ["{{ project_id }}"]},
     {task = "git_add", args = ["{{ project_id }}"]},
     {task = "repo_setup", args = ["{{ project_id }}"]},
-    {task = "repo_regenerate_stubs", args = ["{{ project_id }}"]},
     {task = "git_add", args = ["{{ project_id }}"]},
     {task = "repo_pre_commit", args = ["{{ project_id }}"]},
     {task = "git_add", args = ["{{ project_id }}"]},
     {task = "git_initial_commit", args = ["{{ project_id }}"]},
     {task = "git_initial_tag", args = ["{{ project_id }}"]},
-    {task = "git_push_tags", args = ["{{ project_id }}"]},
     {task = "create_github_repo", args = ["{{ project_id }}"]},
+    {task = "git_push_tags", args = ["{{ project_id }}"]},
     {task = "delete_repo_labels", args = ["{{ project_id }}"]},
     {task = "add_github_labels", args = ["{{ project_id }}"]}
 ]
