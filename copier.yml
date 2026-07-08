@@ -126,7 +126,7 @@ _tasks:
         "git",
         "tag",
         "-a",
-        "v.0.0.0",
+        "v0.0.0",
         "-m",
         "release version 0.0.0",
       ]
