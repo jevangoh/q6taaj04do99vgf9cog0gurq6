@@ -64,6 +64,7 @@ prettier = ">=3.8.3"
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
+run_all_pre_commit_hooks = "prek run --all-files || true"
 
 lint_documents = "prettier --check --ignore-unknown"
 format_documents = "prettier --write --ignore-unknown"

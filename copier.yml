@@ -107,7 +107,7 @@ _tasks:
   - command: [pixi, run, -e, dev, git, add, .]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: [pixi, run, -e, dev, prek, run, --all-files, "||", "true"]
+  - command: [pixi, run, -e, dev, run_all_pre_commit_hooks]
     when: "{{ _copier_operation == 'copy' }}"
 
   - command: [pixi, run, -e, dev, git, add, .]
