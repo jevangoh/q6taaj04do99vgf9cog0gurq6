@@ -2,15 +2,15 @@
 
 [[github]](https://github.com/jevangoh/q6taaj04do99vgf9cog0gurq6) [[readthedocs]](https://q6taaj04do99vgf9cog0gurq6.readthedocs.io/en/latest/)
 
-This repository contains both [pixi](https://pixi.prefix.dev/latest/) tasks for generation and update of python package repositories using [copier](https://copier.readthedocs.io/en/stable/). The [copier](https://copier.readthedocs.io/en/stable/) template can also be found in this repository.
+This repository contains the [copier](https://copier.readthedocs.io/en/stable/) template for generating python package repositories.
 
 ## Getting Started
 
-**PLEASE VISIT [ot1j9dc4rdqcs45pcvpho3jgr](https://github.com/jevangoh/ot1j9dc4rdqcs45pcvpho3jgr.git) FIRST.** It contains the documentation for repositories generated and maintained by [q6taaj04do99vgf9cog0gurq6](https://github.com/jevangoh/q6taaj04do99vgf9cog0gurq6).
+**PLEASE VISIT [ywbe9tuag740j1x6ezhxvqb7f](https://ywbe9tuag740j1x6ezhxvqb7f.readthedocs.io/en/latest/) FIRST.** It contains the documentation for repositories based on [this template (q6taaj04do99vgf9cog0gurq6)](https://github.com/jevangoh/q6taaj04do99vgf9cog0gurq6).
 
 ### Generation of Python Package Repositories
 
-First generate an id using [r0tf0lOBqF6UZ2HxarUT3O](https://github.com/jevangoh/r0tf0lOBqF6UZ2HxarUT3O.git) package.
+First generate an id using [dt9ezskevixgm3q01tdb3z8ak](https://github.com/jevangoh/dt9ezskevixgm3q01tdb3z8ak.git) package.
 
 Then run
 
