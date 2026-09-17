@@ -188,8 +188,12 @@ format_all_documents = "prettier --write . --ignore-unknown"
 [tool.pixi.feature.docs.dependencies]
 mkdocs = ">=1.6.1,<2"
 mkdocs-material = ">=9.7.6,<10"
-pymdown-extensions = ">=10.20,<11"
+pymdown-extensions = ">=10.21.3,<11"
+
+[tool.pixi.feature.docs.pypi-dependencies]
+zensical = ">=0.0.47,<0.0.48"
+markdown-gfm-admonition = ">=0.3.0,<0.4"
 
 [tool.pixi.feature.docs.tasks]
-build_docs = "mkdocs build --config-file mkdocs.yaml"
+build_docs = "zensical build --config-file zensical.toml"
 
