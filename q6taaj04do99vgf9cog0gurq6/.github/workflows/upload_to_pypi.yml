@@ -1,0 +1,46 @@
+name: Notify PyPI Server
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release Tag (e.g., v0.0.1)"
+        required: true
+
+jobs:
+  notify-pypi-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Construct Payload Variables
+        id: vars
+        run: |
+          PKG_NAME="${{ github.event.repository.name }}"
+          TAG="${{ github.event.release.tag_name || inputs.tag }}"
+          VERSION="${TAG#v}"  # Strips leading 'v' if present (e.g., v0.0.1 -> 0.0.1)
+
+          WHL_NAME="${PKG_NAME}-${VERSION}-py3-none-any.whl"
+          TAR_NAME="${PKG_NAME}-${VERSION}.tar.gz"
+
+          WHL_URL="https://github.com/${{ github.repository }}/releases/download/${TAG}/${WHL_NAME}"
+          TAR_URL="https://github.com/${{ github.repository }}/releases/download/${TAG}/${TAR_NAME}"
+
+          echo "pkg_name=${PKG_NAME}" >> $GITHUB_OUTPUT
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "whl_url=${WHL_URL}" >> $GITHUB_OUTPUT
+          echo "tar_url=${TAR_URL}" >> $GITHUB_OUTPUT
+
+      - name: Dispatch Event to PyPI Server Repo
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PYPI_SERVER_PAT }}
+          repository: <your-username>/<pypi-server-repo> # Replace with your PyPI server repo (e.g., jevangoh/pypi-server)
+          event-type: package-released
+          client-payload: |
+            {
+              "package_name": "${{ steps.vars.outputs.pkg_name }}",
+              "tag": "${{ steps.vars.outputs.tag }}",
+              "whl_url": "${{ steps.vars.outputs.whl_url }}",
+              "tar_url": "${{ steps.vars.outputs.tar_url }}"
+            }
