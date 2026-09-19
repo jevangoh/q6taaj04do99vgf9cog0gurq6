@@ -50,6 +50,10 @@ project_id:
   help: "What is the id of the project? (e.g. q6taaj04do99vgf9cog0gurq6)"
   validate: "^[a-z0-9-]+$" # Ensure it's URL/GitHub friendly
 
+project_description:
+  type: str
+  help: "Describe the project"
+
 orcid_family_name:
   type: str
   default: "Goh"
@@ -146,6 +150,8 @@ _tasks:
         "--source=.",
         "--remote=origin",
         "--push",
+        "--description",
+        "{{ project_description }}",
       ]
     when: "{{ _copier_operation == 'copy' }}"
 

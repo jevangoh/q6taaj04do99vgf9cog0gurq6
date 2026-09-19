@@ -1,15 +1,46 @@
 [project]
 site_name = "{{ project_id }}"
-site_url = "https://dt9ezskevixgm3q01tdb3z8ak.readthedocs.io/en/latest/"
+site_url = "https://{{ project_id }}.readthedocs.io/en/latest/"
 site_description = ""
 site_author = "{{ owner_name }}"
 
 docs_dir = "documentation"
+language = "en"
 
-nav = [
-  {"Home" = "index.md"}
+repo_url = "https://github.com/jevangoh/{{ project_id }}"
+edit_uri = "tree/main/{{ project_id }}/"
+
+extra_css = [
+    "stylesheets/dark.css",
+    "stylesheets/light.css"
 ]
 
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.gfm_admonition]
+
+# --- Theme ---
+[project.theme]
+features = [
+  "announce.dismiss",
+  "content.code.annotate",
+  "content.code.copy",
+  "content.code.select",
+  "content.footnote.tooltips",
+  "content.tooltips",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "navigation.path",
+  "navigation.sections",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+  "content.action.view"
+]
+
+[project.theme.icon]
+repo = "fontawesome/brands/git-alt"
 
 [[project.theme.palette]]
 media = "(prefers-color-scheme)"
@@ -19,11 +50,18 @@ toggle.name = "Switch to light mode"
 [[project.theme.palette]]
 media = "(prefers-color-scheme: light)"
 scheme = "default"
+primary = "custom"
+accent = "custom"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
 media = "(prefers-color-scheme: dark)"
 scheme = "slate"
+primary = "blue"
+accent = "light blue"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to system preference"
+
+# --- Navigation Tree ---
+
