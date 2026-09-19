@@ -396,3 +396,9 @@ _tasks:
         "jevangoh/{{ project_id }}",
       ]
     when: "{{ _copier_operation == 'copy' }}"
+
+  - command: ["pixi", "run", "-e", "dev", "create_readthedocs"]
+    when: "{{ _copier_operation == 'copy' }}"
+
+  - command: ["pixi", "run", "-e", "dev", "build_readthedocs"]
+    when: "{{ _copier_operation == 'copy' }}"
