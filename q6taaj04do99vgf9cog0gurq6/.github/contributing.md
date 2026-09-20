@@ -1,3 +1,3 @@
 # Contributing
 
-Please refer to the [contributing section](https://ot1j9dc4rdqcs45pcvpho3jgr.readthedocs.io/en/latest/development_and_community/contributing/) of [ot1j9dc4rdqcs45pcvpho3jgr](https://ot1j9dc4rdqcs45pcvpho3jgr.readthedocs.io/en/latest/).
+Please refer to the [contributing section](https://ywbe9tuag740j1x6ezhxvqb7f.readthedocs.io/en/latest/development_and_community/contributing/) of [ywbe9tuag740j1x6ezhxvqb7f](https://ywbe9tuag740j1x6ezhxvqb7f.readthedocs.io/en/latest/).
