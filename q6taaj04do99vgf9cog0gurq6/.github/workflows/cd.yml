@@ -21,7 +21,15 @@ jobs:
         uses: dopplerhq/cli-action@v3
 
       - name: Load Secrets from Doppler
-        run: doppler secrets download --no-file --format=env-no-quotes >> $GITHUB_ENV
+        run: |
+          doppler secrets download --no-file --format=json | jq -r 'to_entries[] | "\(.key)=\(.value)"' | while read -r line; do
+            key="${line%%=*}"
+            value="${line#*=}"
+            if [ -n "$value" ]; then
+              echo "::add-mask::$value"
+              echo "$key=$value" >> $GITHUB_ENV
+            fi
+          done
         env:
           DOPPLER_TOKEN: ${{ secrets.AZU4V7WTFF38YLYNTQXQI0B7G }}
 
