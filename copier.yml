@@ -155,6 +155,9 @@ _tasks:
       ]
     when: "{{ _copier_operation == 'copy' }}"
 
+  - command: 'pixi run -e dev gh secret set btgbb2fgu8k0q51sc26f6x9f7 --body "%btgbb2fgu8k0q51sc26f6x9f7%"'
+    when: "{{ _copier_operation == 'copy' }}"
+
   - command: ["pixi", "run", "-e", "dev", "git", "push", "origin", "--tags"]
     when: "{{ _copier_operation == 'copy' }}"
 
@@ -398,7 +401,4 @@ _tasks:
     when: "{{ _copier_operation == 'copy' }}"
 
   - command: ["pixi", "run", "-e", "dev", "create_readthedocs"]
-    when: "{{ _copier_operation == 'copy' }}"
-
-  - command: 'pixi run -e dev gh secret set btgbb2fgu8k0q51sc26f6x9f7 --body "%btgbb2fgu8k0q51sc26f6x9f7%"'
     when: "{{ _copier_operation == 'copy' }}"
