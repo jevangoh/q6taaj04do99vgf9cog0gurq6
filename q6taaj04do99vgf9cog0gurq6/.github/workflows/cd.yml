@@ -17,6 +17,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Doppler CLI
+        uses: dopplerhq/cli-action@v3
+
+      - name: Load Secrets from Doppler
+        run: doppler secrets download --no-file --format=env-no-quotes >> $GITHUB_ENV
+        env:
+          DOPPLER_TOKEN: ${{ secrets.AZU4V7WTFF38YLYNTQXQI0B7G }}
+
       - name: Setup Pixi
         uses: prefix-dev/setup-pixi@v0.8.0
         with:
@@ -58,8 +66,8 @@ jobs:
       - name: Dispatch Event to PyPI Server Repo
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.btgbb2fgu8k0q51sc26f6x9f7 }}
-          repository: https://github.com/jevangoh/as1oocnl0leb61sj1yew20lt2
+          token: ${{ env.BTGBB2FGU8K0Q51SC26F6X9F7 }}
+          repository: jevangoh/as1oocnl0leb61sj1yew20lt2
           event-type: package-released
           client-payload: |
             {
