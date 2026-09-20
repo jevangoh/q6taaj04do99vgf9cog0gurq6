@@ -34,7 +34,7 @@ jobs:
       - name: Dispatch Event to PyPI Server Repo
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.PYPI_SERVER_PAT }}
+          token: ${{ secrets.btgbb2fgu8k0q51sc26f6x9f7 }}
           repository: <your-username>/<pypi-server-repo> # Replace with your PyPI server repo (e.g., jevangoh/pypi-server)
           event-type: package-released
           client-payload: |
