@@ -25,8 +25,8 @@ dev = [
     "copier>=9.18.2,<10"
 ]
 docs = [
-    "zensical>=0.0.69, <0.0.70",
-    "pymdown-extensions>=10.20,<11"
+    "zensical>=0.0.47,<0.0.48",
+    "pymdown-extensions>=12.2,<13"
 ]
 
 ######################################################################################################
@@ -57,10 +57,10 @@ solve-group = "default"
 # ==================================== features ====================================
 # ----------------------------- dev -----------------------------
 [tool.pixi.feature.dev.dependencies]
-git = ">=2.54.0,<3"
-gh = ">=2.83.2,<3"
-nodejs = ">=24,<25.3"
-prettier = ">=3.8.3"
+git = ">=2.56.0,<3"
+gh = ">=2.102.0,<3"
+nodejs = ">=26.10.0,<26.11"
+prettier = ">=3.9.6,<4"
 
 [tool.pixi.feature.dev.tasks]
 setup = "prek install"
@@ -80,8 +80,7 @@ build_package = "python -m build"
 curl = ">=8.22.0,<9"
 
 [tool.pixi.feature.docs.pypi-dependencies]
-zensical = ">=0.0.69, <0.0.70"
-markdown-gfm-admonition = ">=0.3.0,<0.4"
+markdown-gfm-admonition = ">=0.3.0, <0.4"
 
 [tool.pixi.feature.docs.tasks]
 build_docs = "zensical build --config-file zensical.toml"
