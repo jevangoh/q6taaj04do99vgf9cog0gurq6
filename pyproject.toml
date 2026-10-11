@@ -6,7 +6,7 @@ name = "q6taaj04do99vgf9cog0gurq6"
 version = "0.0.0"
 
 requires-python = ">= 3.11"
-dependencies = ["copier>=9.14.3,<10"]
+dependencies = ["copier>=9.18.2,<10"]
 
 authors = [{name = "Jevan Goh", email = "javerngoh@gmail.com"}]
 
@@ -188,7 +188,7 @@ format_all_documents = "prettier --write . --ignore-unknown"
 [tool.pixi.feature.docs.dependencies]
 
 [tool.pixi.feature.docs.pypi-dependencies]
-zensical = ">=0.0.47,<0.0.48"
+zensical = ">=0.0.69, <0.0.70"
 markdown-gfm-admonition = ">=0.3.0,<0.4"
 
 [tool.pixi.feature.docs.tasks]
