@@ -155,8 +155,8 @@ _tasks:
       ]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: 'pixi run -e dev gh secret set AZU4V7WTFF38YLYNTQXQI0B7G --body "%AZU4V7WTFF38YLYNTQXQI0B7G%"'
-    when: "{{ _copier_operation == 'copy' }}"
+  # - command: 'pixi run -e dev gh secret set AZU4V7WTFF38YLYNTQXQI0B7G --body "%AZU4V7WTFF38YLYNTQXQI0B7G%"'
+  #   when: "{{ _copier_operation == 'copy' }}"
 
   - command: ["pixi", "run", "-e", "dev", "git", "push", "origin", "--tags"]
     when: "{{ _copier_operation == 'copy' }}"
