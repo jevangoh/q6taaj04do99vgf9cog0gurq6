@@ -57,7 +57,13 @@ project_description:
 AZU4V7WTFF38YLYNTQXQI0B7G:
   type: str
   secret: true
-  help: "Enter AZU4V7WTFF38YLYNTQXQI0B7G secret token"
+  help: "Enter AZU4V7WTFF38YLYNTQXQI0B7G secret token for doppler"
+  default: ""
+
+PA0DBVCU05YKU48G8HCUNB2G3:
+  type: str
+  secret: true
+  help: "Enter PA0DBVCU05YKU48G8HCUNB2G3 secret token for readthedocs"
   default: ""
 
 orcid_family_name:
@@ -406,5 +412,31 @@ _tasks:
       ]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: ["pixi", "run", "-e", "dev", "create_readthedocs"]
+  - command: >
+      pixi run -e dev python -c '
+      import urllib.request, json
+      token = "{{ PA0DBVCU05YKU48G8HCUNB2G3 }}"
+      url = "https://app.readthedocs.org/api/v3/projects/"
+      headers = {
+          "Authorization": f"Token {token}",
+          "Content-Type": "application/json"
+      }
+      data = json.dumps({
+          "name": "{{ project_id }}",
+          "repository": {
+              "url": "https://github.com/jevangoh/{{ project_id }}",
+              "type": "git"
+          },
+          "default_branch": "main",
+          "programming_language": "py"
+      }).encode("utf-8")
+
+      req = urllib.request.Request(url, data=data, headers=headers, method="POST")
+      try:
+          with urllib.request.urlopen(req) as response:
+              print(response.read().decode())
+      except urllib.error.HTTPError as e:
+          print(e.read().decode())
+          exit(1)
+      '
     when: "{{ _copier_operation == 'copy' }}"
