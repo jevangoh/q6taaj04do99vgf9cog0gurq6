@@ -54,6 +54,11 @@ project_description:
   type: str
   help: "Describe the project"
 
+AZU4V7WTFF38YLYNTQXQI0B7G:
+  type: str
+  secret: true
+  help: "Enter AZU4V7WTFF38YLYNTQXQI0B7G secret token"
+
 orcid_family_name:
   type: str
   default: "Goh"
@@ -155,7 +160,7 @@ _tasks:
       ]
     when: "{{ _copier_operation == 'copy' }}"
 
-  - command: 'pixi run -e dev gh secret set AZU4V7WTFF38YLYNTQXQI0B7G --body "%AZU4V7WTFF38YLYNTQXQI0B7G%"'
+  - command: "pixi run -e dev gh secret set AZU4V7WTFF38YLYNTQXQI0B7G --body {{ AZU4V7WTFF38YLYNTQXQI0B7G }}"
     when: "{{ _copier_operation == 'copy' }}"
 
   - command: ["pixi", "run", "-e", "dev", "git", "push", "origin", "--tags"]
