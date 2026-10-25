@@ -58,6 +58,7 @@ AZU4V7WTFF38YLYNTQXQI0B7G:
   type: str
   secret: true
   help: "Enter AZU4V7WTFF38YLYNTQXQI0B7G secret token"
+  default: ""
 
 orcid_family_name:
   type: str
