@@ -421,6 +421,6 @@ _tasks:
         "run",
         "-e",
         "dev",
-        "create_readthedocs",
+        "create_readthedocs_with_manual_secrets_injection",
       ]
     when: "{{ _copier_operation == 'copy' }}"
